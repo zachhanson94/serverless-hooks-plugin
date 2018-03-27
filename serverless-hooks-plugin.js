@@ -14,7 +14,16 @@ class ServerlessHooksPlugin {
         commands.forEach(
           command => {
             serverless.cli.log(`Running ${hook} command: "${command}"`)
-            var output = execSync(command).toString()
+            try {
+              var output = execSync(command).toString()
+            } catch (err) {
+              err.stdout;
+              err.stderr;
+              err.pid;
+              err.signal;
+              err.status;
+            }
+
             if (output) {
               serverless.cli.log(output)
             }
